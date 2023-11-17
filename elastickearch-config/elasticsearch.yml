@@ -1,0 +1,7 @@
+cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+xpack.security.enabled: true
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+elasticsearch.username: "admin"
+elasticsearch.password: "movie4u"
+discovery.type: single-node

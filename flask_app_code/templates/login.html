@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <style>
+        .login-container {
+            background: rgba(255, 255, 255, 0.7); /* Arrière-plan semi-transparent */
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 100px;
+        }
+        .logo {
+            max-width: 100%; /* Réduire la taille maximale du logo à la largeur du conteneur */
+            border: 2px solid white; /* Contour blanc autour du logo */
+            animation: logoAnimation 5s linear infinite; /* Animation en continu */
+        }
+        .error-message {
+            color: #FFACAC; /* Couleur du texte d'erreur */
+            margin-top: 10px;
+        }
+
+                /* Style pour les labels */
+        label {
+            font-weight: bold; /* Texte en gras */
+            color: #ffacac; /* Couleur du texte */
+            display: block; /* Chaque label sur une ligne séparée */
+            margin-bottom: 5px; /* Marge entre les labels */
+        }
+
+        /* Style pour les éléments de formulaire */
+        .form-control {
+            border: 1px solid #ffacac; /* Bordure du champ de formulaire */
+            border-radius: 5px; /* Coins arrondis */
+            padding: 8px; /* Espacement interne */
+        }
+
+        /* Style pour les boutons */
+        .btn {
+            background-color: #ab4052; /* Couleur de fond */
+            color: #fff; /* Couleur du texte */
+            border: none; /* Pas de bordure */
+            border-radius: 5px; /* Coins arrondis */
+            padding: 10px 20px; /* Espacement interne */
+            cursor: pointer; /* Curseur au survol */
+        }
+
+        /* Style pour les boutons au survol */
+        .btn:hover {
+            background-color: #ffacac; /* Couleur de fond au survol */
+            color: #ab4052; /* Couleur du texte au survol */
+        }
+
+        /* Style pour le conteneur */
+        .container {
+            background-color: #fff; /* Couleur de fond */
+            margin-top: 20px; /* Marge en haut */
+            padding: 20px; /* Espacement interne */
+            border-radius: 10px; /* Coins arrondis */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre douce */
+        }
+
+
+        @keyframes move {
+            100% {
+                transform: translate3d(0, 0, 1px) rotate(360deg);
+            }
+        }
+
+        .background {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            background: #ab4052;
+            overflow: hidden;
+        }
+
+        .background span {
+            width: 20vmin;
+            height: 20vmin;
+            border-radius: 20vmin;
+            backface-visibility: hidden;
+            position: absolute;
+            animation: move;
+            animation-duration: 45;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+
+        .background span:nth-child(0) {
+            color: #FFACAC;
+            top: 2%;
+            left: 81%;
+            animation-duration: 26s;
+            animation-delay: -36s;
+            transform-origin: 10vw 3vh;
+            box-shadow: -40vmin 0 5.425259390732vmin currentColor;
+        }
+        .background span:nth-child(1) {
+            color: #FFACAC;
+            top: 56%;
+            left: 28%;
+            animation-duration: 46s;
+            animation-delay: -9s;
+            transform-origin: 14vw 6vh;
+            box-shadow: -40vmin 0 5.975213963394173vmin currentColor;
+        }
+        .background span:nth-child(2) {
+            color: #f7922dd6;
+            top: 12%;
+            left: 87%;
+            animation-duration: 53s;
+            animation-delay: -30s;
+            transform-origin: 16vw -8vh;
+            box-shadow: -40vmin 0 5.72869314368442vmin currentColor;
+        }
+        .background span:nth-child(3) {
+            color: #f7922dd6;
+            top: 95%;
+            left: 2%;
+            animation-duration: 45s;
+            animation-delay: -42s;
+            transform-origin: 20vw -3vh;
+            box-shadow: -40vmin 0 5.489790792844312vmin currentColor;
+        }
+        .background span:nth-child(4) {
+            color: #ab4052;
+            top: 71%;
+            left: 11%;
+            animation-duration: 51s;
+            animation-delay: -12s;
+            transform-origin: 2vw 5vh;
+            box-shadow: -40vmin 0 5.625407063285546vmin currentColor;
+        }
+        .background span:nth-child(5) {
+            color: #f7922dd6;
+            top: 57%;
+            left: 45%;
+            animation-duration: 26s;
+            animation-delay: -39s;
+            transform-origin: -24vw -13vh;
+            box-shadow: 40vmin 0 5.715331618891433vmin currentColor;
+        }
+        .background span:nth-child(6) {
+            color: #FFACAC;
+            top: 1%;
+            left: 64%;
+            animation-duration: 41s;
+            animation-delay: -21s;
+            transform-origin: 4vw -11vh;
+            box-shadow: 40vmin 0 5.267244004590157vmin currentColor;
+        }
+        .background span:nth-child(7) {
+            color: #FFACAC;
+            top: 41%;
+            left: 28%;
+            animation-duration: 34s;
+            animation-delay: -5s;
+            transform-origin: 21vw -2vh;
+            box-shadow: -40vmin 0 5.254441721686892vmin currentColor;
+        }
+        .background span:nth-child(8) {
+            color: #FFACAC;
+            top: 28%;
+            left: 84%;
+            animation-duration: 8s;
+            animation-delay: -43s;
+            transform-origin: -9vw 21vh;
+            box-shadow: -40vmin 0 5.656072975955921vmin currentColor;
+        }
+        .background span:nth-child(9) {
+            color: #f7922dd6;
+            top: 14%;
+            left: 91%;
+            animation-duration: 52s;
+            animation-delay: -11s;
+            transform-origin: 22vw 5vh;
+            box-shadow: 40vmin 0 5.760060396514762vmin currentColor;
+        }
+        .background span:nth-child(10) {
+            color: #FFACAC;
+            top: 76%;
+            left: 9%;
+            animation-duration: 24s;
+            animation-delay: -50s;
+            transform-origin: 1vw -22vh;
+            box-shadow: -40vmin 0 5.8633665246478195vmin currentColor;
+        }
+        .background span:nth-child(11) {
+            color: #f7922dd6;
+            top: 17%;
+            left: 38%;
+            animation-duration: 24s;
+            animation-delay: -37s;
+            transform-origin: 10vw -21vh;
+            box-shadow: 40vmin 0 5.832475115785368vmin currentColor;
+        }
+        .background span:nth-child(12) {
+            color: #f7922dd6;
+            top: 17%;
+            left: 99%;
+            animation-duration: 40s;
+            animation-delay: -43s;
+            transform-origin: 24vw -20vh;
+            box-shadow: 40vmin 0 5.07164311367174vmin currentColor;
+        }
+        .background span:nth-child(13) {
+            color: #ab4052;
+            top: 7%;
+            left: 95%;
+            animation-duration: 32s;
+            animation-delay: -1s;
+            transform-origin: 21vw -20vh;
+            box-shadow: -40vmin 0 5.896657490704251vmin currentColor;
+        }
+        .background span:nth-child(14) {
+            color: #E45A84;
+            top: 35%;
+            left: 97%;
+            animation-duration: 50s;
+            animation-delay: -31s;
+            transform-origin: -16vw 9vh;
+            box-shadow: -40vmin 0 5.669941089430001vmin currentColor;
+        }
+        .background span:nth-child(15) {
+            color: #FFACAC;
+            top: 77%;
+            left: 62%;
+            animation-duration: 43s;
+            animation-delay: -44s;
+            transform-origin: -21vw 1vh;
+            box-shadow: -40vmin 0 5.817723187942973vmin currentColor;
+        }
+        .background span:nth-child(16) {
+            color: #f7922dd6;
+            top: 58%;
+            left: 25%;
+            animation-duration: 39s;
+            animation-delay: -48s;
+            transform-origin: -17vw 11vh;
+            box-shadow: -40vmin 0 5.667819289172533vmin currentColor;
+        }
+        .background span:nth-child(17) {
+            color: #f7922dd6;
+            top: 16%;
+            left: 75%;
+            animation-duration: 42s;
+            animation-delay: -46s;
+            transform-origin: -24vw -7vh;
+            box-shadow: 40vmin 0 5.145249187932338vmin currentColor;
+        }
+        .background span:nth-child(18) {
+            color: #ab4052;
+            top: 57%;
+            left: 81%;
+            animation-duration: 24s;
+            animation-delay: -20s;
+            transform-origin: -2vw 8vh;
+            box-shadow: -40vmin 0 5.6195485912934835vmin currentColor;
+        }
+        .background span:nth-child(19) {
+            color: #ab4052;
+            top: 36%;
+            left: 85%;
+            animation-duration: 54s;
+            animation-delay: -34s;
+            transform-origin: -1vw -24vh;
+            box-shadow: -40vmin 0 5.93902546554262vmin currentColor;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+     </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mt-5 animated fadeIn login-container text-center">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Movie Recommendation Logo" class="mb-4 logo">
+                <h1 class="mt-2">Login</h1>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="user_id" style="color: white;">User ID:</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation" style="color: white;">Occupation:</label>
+                        <input type="text" class="form-control" id="occupation" name="occupation" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    <!-- Ajoutez un lien vers la page d'inscription -->
+                    <p>Vous n'avez pas de compte ? <a href="{{ url_for('signup') }}">Inscrivez-vous ici</a></p>
+                    {% if error %}
+                    <p class="error-message">{{ error }}</p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

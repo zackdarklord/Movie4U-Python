@@ -1,0 +1,74 @@
+version: '3'
+services:
+  # Service Elasticsearch pour le stockage et l'indexation des données
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    ports:
+      - "9200:9200"  # Port HTTP d'Elasticsearch
+    networks:
+      - bigdata_network
+    container_name: movie4u_elasticsearch  # Nom du conteneur Elasticsearch
+    volumes:
+      - C:\movie4u\elasticsearch_data:/usr/share/elasticsearch/data  # Montage du volume de données
+    environment:
+      discovery.type: single-node  # Configuration d'Elasticsearch en mode nœud unique.
+
+  # Service Kibana pour la visualisation des données Elasticsearch
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.0
+    ports:
+      - "5601:5601"  # Port d'accès à Kibana
+    networks:
+      - bigdata_network
+    container_name: movie4u_kibana  # Nom du conteneur Kibana
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200  # Configuration de Kibana pour se connecter à Elasticsearch.
+    volumes:
+      - C:\movie4u\kibana-config:/usr/share/kibana/config/ # Montage du répertoire de l'application kibana.
+
+  # Service Jupyter Notebook pour le développement et l'analyse de données
+  jupyter:
+    build:
+      context: ./jupyter  # Chemin vers le répertoire contenant le Dockerfile du conteneur Jupyter
+    image: jupyter/datascience-notebook:latest
+    ports:
+      - "8888:8888"  # Port d'accès à Jupyter
+    networks:
+      - bigdata_network
+    container_name: movie4u_jupyter  # Nom du conteneur Jupyter Notebook
+    volumes:
+      - C:\movie4u\jupyter_notebooks:/home/jovyan/work  # Montage du répertoire local pour stocker les notebooks.
+
+  # Service Flask pour l'application Web de recommandation
+  flask:
+    build:
+      context: ./flask-app  # Le répertoire de votre application Flask
+    ports:
+      - "5000:5000"  # Port d'accès à l'application Flask
+    networks:
+      - bigdata_network
+    container_name: movie4u_flask  # Nom du conteneur Flask
+    depends_on:
+      - elasticsearch
+      - jupyter  # Dépendance des services Elasticsearch et Jupyter
+    volumes:
+      - C:\movie4u\flask_app_code:/app  # Montage du répertoire de l'application Flask.
+
+  # Service Logstash pour l'ingestion de données vers Elasticsearch
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.15.0
+    ports:
+      - "5044:5044"  # Port pour l'ingestion de données
+    networks:
+      - bigdata_network
+    container_name: movie4u_logstash  # Nom du conteneur Logstash
+    volumes:
+      - C:\movie4u\logstash-config\config:/usr/share/logstash/config/  # Montage du répertoire de configuration Logstash
+      - C:\movie4u\logstash-config\pipeline:/usr/share/logstash/pipeline/
+    depends_on:
+      - elasticsearch
+      - jupyter  # Dépendance des services Elasticsearch et Jupyter
+
+networks:
+  bigdata_network:
+    # Définition du réseau pour connecter les conteneurs.

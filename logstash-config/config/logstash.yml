@@ -1,0 +1,9 @@
+http.host: "0.0.0.0"  # Cette configuration indique à Logstash d'écouter les connexions HTTP de n'importe quelle interface.
+
+pipeline.workers: 2  # Le nombre de travailleurs du pipeline Logstash. Vous pouvez augmenter ou diminuer en fonction de vos besoins de performances.
+
+pipeline.batch.size: 125  # La taille des lots de données traitées par Logstash.
+
+path.config: /usr/share/logstash/pipeline/  # Le répertoire contenant les fichiers de configuration du pipeline Logstash. Vous pouvez personnaliser ce chemin selon votre structure de fichiers.
+
+path.data : /usr/share/logstash/pipeline/data_input/

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Profil Utilisateur</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.13.7/datatables.min.css">
+      <style>
+         .container-fluid {
+         background: rgba(255, 255, 255, 0.7);
+         padding: 20px;
+         border-radius: 5px;
+         margin-bottom: 100px;
+         }
+         .navbar {
+         background-color: #343a40;
+         color: #fff;
+         padding: 10px 20px;
+         }
+         .navbar-brand {
+         font-size: 24px;
+         }
+         .btn-logout {
+         background-color: #dc3545;
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         padding: 10px 20px;
+         cursor: pointer;
+         margin-top: 10px; /* Ajout d'un espace entre le bouton et le coin supérieur droit */
+         }
+         .btn-logout:hover {
+         background-color: #c82333;
+         }
+         .table-bordered {
+         background-color: #fff;
+         }
+         .table-bordered th, .table-bordered td {
+         border: 1px solid #dee2e6;
+         padding: 8px;
+         }
+         .table-bordered th {
+         background-color: #343a40;
+         color: #fff;
+         }
+         @keyframes move {
+         100% {
+         transform: translate3d(0, 0, 1px) rotate(360deg);
+         }
+         }
+         .background {
+         position: fixed;
+         width: 100vw;
+         height: 100vh;
+         top: 0;
+         left: 0;
+         background: #ab4052;
+         overflow: hidden;
+         }
+         .background span {
+         width: 20vmin;
+         height: 20vmin;
+         border-radius: 20vmin;
+         backface-visibility: hidden;
+         position: absolute;
+         animation: move;
+         animation-duration: 45;
+         animation-timing-function: linear;
+         animation-iteration-count: infinite;
+         }
+         .background span:nth-child(0) {
+         color: #FFACAC;
+         top: 2%;
+         left: 81%;
+         animation-duration: 26s;
+         animation-delay: -36s;
+         transform-origin: 10vw 3vh;
+         box-shadow: -40vmin 0 5.425259390732vmin currentColor;
+         }
+         .background span:nth-child(1) {
+         color: #FFACAC;
+         top: 56%;
+         left: 28%;
+         animation-duration: 46s;
+         animation-delay: -9s;
+         transform-origin: 14vw 6vh;
+         box-shadow: -40vmin 0 5.975213963394173vmin currentColor;
+         }
+         .background span:nth-child(2) {
+         color: #f7922dd6;
+         top: 12%;
+         left: 87%;
+         animation-duration: 53s;
+         animation-delay: -30s;
+         transform-origin: 16vw -8vh;
+         box-shadow: -40vmin 0 5.72869314368442vmin currentColor;
+         }
+         .background span:nth-child(3) {
+         color: #f7922dd6;
+         top: 95%;
+         left: 2%;
+         animation-duration: 45s;
+         animation-delay: -42s;
+         transform-origin: 20vw -3vh;
+         box-shadow: -40vmin 0 5.489790792844312vmin currentColor;
+         }
+         .background span:nth-child(4) {
+         color: #ab4052;
+         top: 71%;
+         left: 11%;
+         animation-duration: 51s;
+         animation-delay: -12s;
+         transform-origin: 2vw 5vh;
+         box-shadow: -40vmin 0 5.625407063285546vmin currentColor;
+         }
+         .background span:nth-child(5) {
+         color: #f7922dd6;
+         top: 57%;
+         left: 45%;
+         animation-duration: 26s;
+         animation-delay: -39s;
+         transform-origin: -24vw -13vh;
+         box-shadow: 40vmin 0 5.715331618891433vmin currentColor;
+         }
+         .background span:nth-child(6) {
+         color: #FFACAC;
+         top: 1%;
+         left: 64%;
+         animation-duration: 41s;
+         animation-delay: -21s;
+         transform-origin: 4vw -11vh;
+         box-shadow: 40vmin 0 5.267244004590157vmin currentColor;
+         }
+         .background span:nth-child(7) {
+         color: #FFACAC;
+         top: 41%;
+         left: 28%;
+         animation-duration: 34s;
+         animation-delay: -5s;
+         transform-origin: 21vw -2vh;
+         box-shadow: -40vmin 0 5.254441721686892vmin currentColor;
+         }
+         .background span:nth-child(8) {
+         color: #FFACAC;
+         top: 28%;
+         left: 84%;
+         animation-duration: 8s;
+         animation-delay: -43s;
+         transform-origin: -9vw 21vh;
+         box-shadow: -40vmin 0 5.656072975955921vmin currentColor;
+         }
+         .background span:nth-child(9) {
+         color: #f7922dd6;
+         top: 14%;
+         left: 91%;
+         animation-duration: 52s;
+         animation-delay: -11s;
+         transform-origin: 22vw 5vh;
+         box-shadow: 40vmin 0 5.760060396514762vmin currentColor;
+         }
+         .background span:nth-child(10) {
+         color: #FFACAC;
+         top: 76%;
+         left: 9%;
+         animation-duration: 24s;
+         animation-delay: -50s;
+         transform-origin: 1vw -22vh;
+         box-shadow: -40vmin 0 5.8633665246478195vmin currentColor;
+         }
+         .background span:nth-child(11) {
+         color: #f7922dd6;
+         top: 17%;
+         left: 38%;
+         animation-duration: 24s;
+         animation-delay: -37s;
+         transform-origin: 10vw -21vh;
+         box-shadow: 40vmin 0 5.832475115785368vmin currentColor;
+         }
+         .background span:nth-child(12) {
+         color: #f7922dd6;
+         top: 17%;
+         left: 99%;
+         animation-duration: 40s;
+         animation-delay: -43s;
+         transform-origin: 24vw -20vh;
+         box-shadow: 40vmin 0 5.07164311367174vmin currentColor;
+         }
+         .background span:nth-child(13) {
+         color: #ab4052;
+         top: 7%;
+         left: 95%;
+         animation-duration: 32s;
+         animation-delay: -1s;
+         transform-origin: 21vw -20vh;
+         box-shadow: -40vmin 0 5.896657490704251vmin currentColor;
+         }
+         .background span:nth-child(14) {
+         color: #E45A84;
+         top: 35%;
+         left: 97%;
+         animation-duration: 50s;
+         animation-delay: -31s;
+         transform-origin: -16vw 9vh;
+         box-shadow: -40vmin 0 5.669941089430001vmin currentColor;
+         }
+         .background span:nth-child(15) {
+         color: #FFACAC;
+         top: 77%;
+         left: 62%;
+         animation-duration: 43s;
+         animation-delay: -44s;
+         transform-origin: -21vw 1vh;
+         box-shadow: -40vmin 0 5.817723187942973vmin currentColor;
+         }
+         .background span:nth-child(16) {
+         color: #f7922dd6;
+         top: 58%;
+         left: 25%;
+         animation-duration: 39s;
+         animation-delay: -48s;
+         transform-origin: -17vw 11vh;
+         box-shadow: -40vmin 0 5.667819289172533vmin currentColor;
+         }
+         .background span:nth-child(17) {
+         color: #f7922dd6;
+         top: 16%;
+         left: 75%;
+         animation-duration: 42s;
+         animation-delay: -46s;
+         transform-origin: -24vw -7vh;
+         box-shadow: 40vmin 0 5.145249187932338vmin currentColor;
+         }
+         .background span:nth-child(18) {
+         color: #ab4052;
+         top: 57%;
+         left: 81%;
+         animation-duration: 24s;
+         animation-delay: -20s;
+         transform-origin: -2vw 8vh;
+         box-shadow: -40vmin 0 5.6195485912934835vmin currentColor;
+         }
+         .background span:nth-child(19) {
+         color: #ab4052;
+         top: 36%;
+         left: 85%;
+         animation-duration: 54s;
+         animation-delay: -34s;
+         transform-origin: -1vw -24vh;
+         box-shadow: -40vmin 0 5.93902546554262vmin currentColor;
+         }
+         .rating-1 {
+         background-color: #FF4136; /* Note 1 */
+         color: white;
+         }
+         .rating-2 {
+         background-color: #FF6347; /* Note 2 */
+         color: white;
+         }
+         .rating-3 {
+         background-color: #FFA500; /* Note 3 */
+         color: white;
+         }
+         .rating-4 {
+         background-color: #FFD700; /* Note 4 */
+         color: black;
+         }
+         .rating-5 {
+         background-color: #2ECC40; /* Note 5 */
+         color: white;
+         }
+         .rating-unknown {
+         background-color: #999999; /* Note inconnue */
+         color: white;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="background">
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+         <span></span>
+      </div>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+         <a class="navbar-brand" href="#">
+         MOVIE4U
+         </a>
+         <button class="btn btn-success  ml-auto" onclick="window.location.href='{{ url_for('suggestions') }}'">Générer des suggestions</button>
+         <button class="btn btn-logout ml-auto" onclick="window.location.href='{{ url_for('logout') }}'">Déconnexion</button>
+      </nav>
+      <div class="container-fluid mt-4">
+         <div class="row justify-content-center">
+            <div class="col-md-4 mx-5 card card-primary" style="background-color: rgb(230 198 203);">
+               <div class="card-header">
+                  <h2 class="card-title">Profil Utilisateur</h2>
+               </div>
+               <!-- Section d'informations utilisateur -->
+               <div class="user-info">
+                  <div class="card">
+                     <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-user"></i> Utilisateur</h5>
+                        <p class="card-text">{{ user_id }}</p>
+                     </div>
+                  </div>
+                  <div class="card mt-3">
+                     <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-user-tie"></i> Occupation</h5>
+                        <p class="card-text">{{ occupations.get(occupation, 'Inconnu') }}</p>
+                     </div>
+                  </div>
+                  <div class="card mt-3">
+                     <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-venus-mars"></i> Genre</h5>
+                        <p class="card-text">{{ gender }}</p>
+                     </div>
+                  </div>
+                  <div class="card mt-3">
+                     <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-birthday-cake"></i> Tranche d'âge</h5>
+                        <p class="card-text">{{ age_label }}</p>
+                     </div>
+                  </div>
+                  <div class="card mt-3">
+                     <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-map-marker-alt"></i> Code postal</h5>
+                        <p class="card-text">{{ zip_code }}</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6 mx-5 card">
+               <div class="card-header">
+                  <h2 class="card-title">Films notés :</h2>
+               </div>
+               <!-- Section de films notés dans une table -->
+               <div class="container-fluid">
+                  <table id="movies-table" class="table table-striped table-bordered table-hover">
+                     <thead>
+                        <tr>
+                           <th scope="col">Titre</th>
+                           <th scope="col">Genre</th>
+                           <th scope="col">Note</th>
+                        </tr>
+                     </thead>                     
+                     <tbody>
+                        {% for movie in rated_movies %}
+                        <tr>
+                           <td>{{ movie.Title }}</td>
+                           <td>{{ movie.Genres }}</td>
+                           <td class="{{ movie.RatingClass }}">{{ movie.Rating }}</td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://cdn.datatables.net/v/bs4/dt-1.13.7/datatables.min.js"></script>
+      <script>
+         $(document).ready(function () {
+             $('#movies-table').DataTable();
+         });
+      </script>          
+   </body>
+</html>
